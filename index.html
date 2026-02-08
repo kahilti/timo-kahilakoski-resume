@@ -1,0 +1,2705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Timo Kahilakoski | QA Manager - Netflix Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300 ;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --netflix-red: #E50914;
+            --netflix-dark: #141414;
+            --netflix-gray: #808080;
+            --netflix-light: #E5E5E5;
+        }
+        
+        body {
+            background-color: var(--netflix-dark);
+            color: var(--netflix-light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            @page { size: A4; margin: 15mm; }
+            body { background: white !important; color: black !important; font-family: 'Roboto', sans-serif !important; }
+            .nav, .hero, .content-row, .qr-section, .sound-toggle, 
+            .my-list-counter, .footer, .modal-overlay, .contact-section,
+            .skills-container, .slider, .card, .hero-buttons, 
+            .profile-photo-nav, .languages-bar { display: none !important; }
+            .printable-resume { display: block !important; visibility: visible !important; }
+            .print-section { page-break-inside: avoid; margin-bottom: 20px; }
+        }
+        
+        .printable-resume { display: none; visibility: hidden; position: absolute; left: -9999px; }
+        
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            .logo { display: none; } /* Piilota tupla-nimi */
+            
+            .nav {
+                padding: 15px 4%;
+                background: rgba(0,0,0,0.9);
+            }
+            
+            /* KORJAUS: Lisää väliä navigaatiolinkkeihin */
+            .nav-links {
+                gap: 20px;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 80px 4% 100px; /* KORJAUS: Lisätty alapaddingia 40px -> 100px */
+            }
+            
+            /* KORJAUS: Lisää väliä navin ja sisällön väliin */
+            .hero-content {
+                margin-top: 40px;
+            }
+            
+            /* KORJAUS: Hero-rating paremmin välitetty */
+            .hero-rating {
+                gap: 20px;
+                margin-bottom: 25px;
+                justify-content: flex-start;
+                font-size: 0.95rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+                margin-top: 20px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            .languages-bar {
+                margin-top: 15px;
+                gap: 10px;
+            }
+            
+            .language-item {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px; /* KORJAUS: Hieman enemmän väliä nappeihin */
+                margin-top: 25px;
+                margin-bottom: 30px; /* KORJAUS: Varmistaa ettei nappi mene piiloon */
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 30px; /* KORJAUS: Suuremmat napit mobiilissa */
+            }
+            
+            .card {
+                width: 260px;
+                height: 150px;
+            }
+            
+            .card-logo { font-size: 1.5rem; }
+            .card-title { font-size: 1rem; }
+            .card-meta { font-size: 0.8rem; }
+            
+            .modal-content {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .modal-hero { height: 300px; }
+            .modal-logo { font-size: 2.5rem; }
+            .modal-stats { grid-template-columns: 1fr; }
+            
+            .skills-container {
+                gap: 8px;
+            }
+            
+            .skill-item {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .row-title { font-size: 1.2rem; }
+            .card { width: 220px; height: 130px; }
+            
+            /* KORJAUS: Pienemmillä näytöillä vielä enemmän tilaa */
+            .hero-rating {
+                gap: 15px;
+                font-size: 0.85rem;
+            }
+            
+            .nav-links {
+                gap: 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--netflix-red);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 3000;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .sound-toggle:hover { background: var(--netflix-red); }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #181818;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .modal-close:hover { background: var(--netflix-red); }
+        
+        .modal-hero {
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .modal-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, #181818 100%);
+        }
+        
+        .modal-hero-content {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .modal-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: var(--netflix-red);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .modal-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .modal-match { color: #46d369; font-weight: 700; }
+        
+        .modal-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .modal-tag {
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .modal-body { padding: 30px; }
+        
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #d2d2d2;
+        }
+        
+        .modal-section { margin-bottom: 30px; }
+        
+        .modal-section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--netflix-light);
+        }
+        
+        .modal-list { list-style: none; }
+        
+        .modal-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .modal-list li:before {
+            content: "▸";
+            color: var(--netflix-red);
+            font-weight: bold;
+        }
+        
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .modal-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+        
+        .modal-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+            display: block;
+        }
+        
+        .modal-stat-label {
+            font-size: 0.8rem;
+            color: var(--netflix-gray);
+            margin-top: 5px;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+            transition: background-color 0.4s;
+        }
+        
+        .nav.scrolled { background-color: var(--netflix-dark); }
+        
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--netflix-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--netflix-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover { color: var(--netflix-gray); }
+        
+        .profile-photo-nav {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-photo-nav:hover { border-color: var(--netflix-red); }
+        
+        .profile-photo-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+        }
+        
+        .hero {
+            position: relative;
+            height: 85vh;
+            background-color: #141414;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #7A0F14 0%, #2B0A0C 50%, #0E0E0E 100%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-rating {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .match { color: #46d369; font-weight: 700; }
+        
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #E6E6E6;
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+            color: #E6E6E6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-play {
+            background-color: white;
+            color: black;
+        }
+        
+        .btn-play:hover {
+            background-color: rgba(255,255,255,0.8);
+            transform: scale(1.05);
+        }
+        
+        .btn-more {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+        
+        .btn-more:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .qr-section {
+            position: absolute;
+            right: 4%;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 1100px) { .qr-section { display: none; } }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .qr-text { font-size: 0.8rem; color: var(--netflix-gray); }
+        
+        .scan-text {
+            color: var(--netflix-red);
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .content-row {
+            margin-bottom: 50px;
+            padding: 0 4%;
+        }
+        
+        .row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .row-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .row-count {
+            background-color: var(--netflix-red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .slider {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .slider::-webkit-scrollbar { display: none; }
+        
+        .card {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 170px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-color: #2f2f2f;
+            transform-origin: center;
+            scroll-snap-align: start;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Mobile touch active state */
+        .card.touch-active {
+            transform: scale(1.08) translateY(-10px);
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        
+        .card.touch-active .card-tags {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card.touch-active .card-details {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+        
+        .card:hover {
+            transform: scale(1.08) translateY(-10px);
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card:hover::before { left: 100%; }
+        
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            transition: background 0.3s;
+        }
+        
+        .card:hover .card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        
+        .card-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--netflix-red);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--netflix-gray);
+            margin-bottom: 8px;
+        }
+        
+        .card-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+        }
+        
+        .card:hover .card-tags {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tag {
+            background-color: rgba(229, 9, 20, 0.8);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #ccc;
+        }
+        
+        .card:hover .card-details {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+        
+        .show-crown { background: linear-gradient(135deg, #2c1a1d 0%, #1a1a2e 100%); border: 1px solid #ffd700; }
+        .show-black { background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); border: 1px solid #333; }
+        .show-ozark { background: linear-gradient(135deg, #0f2027 0%, #203a43 100%); border: 1px solid #2c5364; }
+        .show-money { background: linear-gradient(135deg, #1a2e1a 0%, #0d1f0d 100%); border: 1px solid #c41e3a; }
+        .show-witcher { background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 100%); border: 1px solid silver; }
+        .show-stranger { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #303f9f; }
+        .show-wednesday { background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%); border: 1px solid #fff; }
+        .show-bridge { background: linear-gradient(135deg, #1a0f0f 0%, #2e1f1f 100%); border: 1px solid #d4af37; }
+        .show-aws { background: linear-gradient(135deg, #232f3e 0%, #ff9900 100%); border: 1px solid #ff9900; }
+        .show-jenkins { background: linear-gradient(135deg, #1a1a1a 0%, #d24939 100%); border: 1px solid #d24939; }
+        .show-jira { background: linear-gradient(135deg, #0052cc 0%, #2684ff 100%); border: 1px solid #2684ff; }
+        .show-unity { background: linear-gradient(135deg, #1a1a1a 0%, #ffffff 100%); border: 1px solid #fff; }
+        
+        .top-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--netflix-red);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 0 4%;
+        }
+        
+        .skill-item {
+            position: relative;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+        
+        .skill-item:hover {
+            background: rgba(229, 9, 20, 0.2);
+            border-color: var(--netflix-red);
+            transform: scale(1.05);
+        }
+        
+        .skill-item.added {
+            background: var(--netflix-red);
+            border-color: var(--netflix-red);
+        }
+        
+        .add-btn {
+            width: 20px;
+            height: 20px;
+            border: 1px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        
+        .skill-item:hover .add-btn {
+            background: white;
+            color: black;
+        }
+        
+        .my-list-counter {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--netflix-red);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: none;
+            z-index: 1500;
+        }
+        
+        .my-list-counter.active {
+            display: block;
+            animation: bounce 0.5s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .contact-section {
+            background: rgba(255,255,255,0.05);
+            padding: 30px 4%;
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--netflix-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text { font-size: 0.9rem; word-break: break-word; }
+        
+        .contact-label {
+            color: var(--netflix-gray);
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+        }
+        
+        .languages-bar {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .language-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .lang-flag { font-size: 1.2rem; }
+        
+        .lang-level {
+            color: #46d369;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .footer {
+            margin-top: 100px;
+            padding: 40px 4%;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--netflix-gray);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--netflix-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover { color: var(--netflix-red); }
+        
+        .printable-resume {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .printable-resume h1 {
+            font-size: 28pt;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+            border-bottom: 3px solid #E50914;
+            padding-bottom: 10px;
+        }
+        
+        .printable-resume .print-header { text-align: center; margin-bottom: 20px; }
+        
+        .printable-resume .print-contact {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .printable-resume h2 {
+            font-size: 14pt;
+            color: #1a1a1a;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .printable-resume h3 {
+            font-size: 12pt;
+            color: #333;
+            margin-bottom: 3px;
+            margin-top: 12px;
+        }
+        
+        .printable-resume .meta {
+            font-size: 10pt;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .printable-resume ul { margin: 5px 0; padding-left: 20px; }
+        .printable-resume li { margin-bottom: 3px; font-size: 10.5pt; }
+        
+        .printable-resume .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 10pt;
+        }
+        
+        .printable-resume .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 10pt;
+        }
+        
+        @media (max-width: 1100px) { .qr-section { display: none; } }
+    </style>
+</head>
+<body>
+    <button class="sound-toggle" onclick="toggleSound()">🔇 Sound: OFF</button>
+    
+    <div class="my-list-counter" id="myListCounter">
+        My List: <span id="listCount">0</span> skills
+    </div>
+
+    <!-- PRINTABLE RESUME -->
+    <div class="printable-resume">
+        <div class="print-header">
+            <h1>TIMO KAHILAKOSKI</h1>
+            <div style="font-size: 14pt; color: #E50914; font-weight: bold; margin-bottom: 5px;">QA Manager | Game Quality Professional</div>
+            <div class="print-contact">
+                <span>📱 +358 40 523 1658</span>
+                <span>✉️ timo.kahilakoski@gmail.com</span>
+                <span>📍 Saunaniementie 3A, 02780 Espoo, Finland</span>
+                <span>💼 linkedin.com/in/timokahilakoski</span>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Professional Summary</h2>
+            <p style="font-size: 11pt; text-align: justify;">
+                Experienced QA professional with 20+ years in software and mobile game testing, progressing from hands-on testing to QA leadership and strategy.
+                Currently leading QA operations for a major F2P mobile game at Metacore, managing a team of 15 testers.
+                Proven track record in establishing QA processes, reducing bug escape rates by 40%, managing release pipelines,
+                and coordinating cross-functional teams in Agile environments. Deep expertise in mobile platforms (iOS/Android),
+                automated testing (AWS Device Farm), CI/CD pipelines (Jenkins), and project management tools (Jira).
+            </p>
+        </div>
+
+        <div class="print-section">
+            <h2>Work Experience</h2>
+            
+            <div class="experience-item">
+                <h3>QA Manager</h3>
+                <div class="meta">Metacore Games (Merge Mansion) | Helsinki, Finland | 2023 – Present</div>
+                <ul>
+                    <li>Own and drive QA strategy for Merge Mansion, a top-grossing F2P merge game with millions of active players</li>
+                    <li>Lead, mentor, and manage a team of 15 QA professionals across functional and embedded testing</li>
+                    <li>Coordinate closely with Analytics and LiveOps teams to ensure quality in frequent content updates</li>
+                    <li>Establish QA processes, best practices, and quality metrics for live operations</li>
+                    <li>Manage release quality and risk assessment for bi-weekly releases</li>
+                    <li>Hands-on testing for critical features and high-risk releases</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Senior QA Tester</h3>
+                <div class="meta">Next Games (Netflix Studio) | Helsinki, Finland | 2022 – 2023</div>
+                <ul>
+                    <li>Senior QA for a story-driven puzzle RPG match-3 F2P game</li>
+                    <li>Created and executed manual test cases across iOS/Android devices</li>
+                    <li>Defined test coverage and supported test strategy implementation</li>
+                    <li>Triaged and followed up on reported issues, ensuring resolution quality</li>
+                    <li>Collaborated with design, engineering, and art teams in Agile sprints</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Senior QA Coordinator</h3>
+                <div class="meta">Skunkworks | Helsinki, Finland | 2022</div>
+                <ul>
+                    <li>Managed end-to-end QA flow and release process for a mobile game project</li>
+                    <li>Actively tested and validated game features, bugs, and UX</li>
+                    <li>Coordinated outsourced testing and maintained QA documentation</li>
+                    <li>Ensured player-facing quality in every live update</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Senior QA Coordinator / Team Lead</h3>
+                <div class="meta">Seriously Digital Entertainment | Helsinki, Finland | 2018 – 2022</div>
+                <ul>
+                    <li>Led QA for live features in F2P puzzle games (Best Fiends series)</li>
+                    <li>QA lead for feature sprints and release pipelines in LiveOps environment</li>
+                    <li>Team lead for internal QA team, managing workload and mentoring junior testers</li>
+                    <li>Created test documentation and tracked bug quality metrics</li>
+                    <li>Coordinated external testing vendors</li>
+                    <li>Submitted builds to iOS, Android, and Amazon app stores</li>
+                    <li><strong>Achievement:</strong> Reduced bug escape rate by 40% through process improvements</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Game Producer</h3>
+                <div class="meta">Rovio Entertainment | Espoo, Finland | 2016 – 2018</div>
+                <ul>
+                    <li>Managed real-time PvP mobile game projects from prototype to late production</li>
+                    <li>Defined production schedules and tasking for cross-functional teams</li>
+                    <li>Managed risk, dependencies, and budget forecasting</li>
+                    <li>Led communication between design, engineering, art, and QA teams</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>QA Lead / Associate Producer</h3>
+                <div class="meta">Rovio Entertainment & Digital Chocolate | 2011 – 2016</div>
+                <ul>
+                    <li>QA lead for F2P idle clicker titles and mobile games</li>
+                    <li>Created test plans, feature-based test cases, and project documentation</li>
+                    <li>Coordinated outsourced QA vendors and managed sprint execution</li>
+                    <li>Tested and validated game features, UX, and performance across platforms</li>
+                    <li>Signed off builds for store submission</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Senior Test Engineer & Error Manager</h3>
+                <div class="meta">Ixonos | Helsinki, Finland | 2005 – 2011</div>
+                <ul>
+                    <li>Led test execution in Symbian and embedded Linux environments</li>
+                    <li>Maintained error databases and triaged bugs for telecom clients</li>
+                    <li>Created and maintained test environments using VMware and vSphere</li>
+                    <li>Executed manual and exploratory testing for mobile devices</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>IT Support</h3>
+                <div class="meta">Wema Service Oy | 2005</div>
+                <ul>
+                    <li>Installed and configured computer hardware and operating systems (W2K/Win NT4)</li>
+                    <li>Managed network device installation and troubleshooting</li>
+                    <li>Provided user support and training</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>Master's Level Studies in Software Production Testing</h3>
+                <div class="meta">University of Tampere | 2005 – 2006 | 60 ECTS Credits</div>
+                <ul>
+                    <li>Advanced studies in quality assurance frameworks, test automation, and software quality metrics</li>
+                    <li>Focus on ISO/IEC 25010 standards and continuous integration testing</li>
+                </ul>
+            </div>
+
+            <div class="education-item">
+                <h3>Bachelor of Information Technology (Network & Telecommunications)</h3>
+                <div class="meta">HAMK University of Applied Sciences | 2004 – 2005 | 180 Credit Points</div>
+                <ul>
+                    <li>Network administration, hardware maintenance, and telecom systems</li>
+                    <li>Server installation and management (Windows/Linux)</li>
+                </ul>
+            </div>
+
+            <div class="education-item">
+                <h3>Bachelor of Electrical Engineering (Automation Technology)</h3>
+                <div class="meta">HAMK University of Applied Sciences | 2002 – 2004 | 180 Credit Points</div>
+                <ul>
+                    <li>Electrical installations, automation systems, PLCs, and industrial electronics</li>
+                </ul>
+            </div>
+
+            <div class="education-item">
+                <h3>Vocational Qualification in Information Technology & Business</h3>
+                <div class="meta">Business School | 1996 – 1999</div>
+                <ul>
+                    <li>IT systems, business administration, and customer service fundamentals</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Certifications</h2>
+            <div class="cert-grid">
+                <div>• ISTQB Agile Tester Foundation Level</div>
+                <div>• Scrum Alliance Certified Scrum Master (2017)</div>
+                <div>• ISTQB Foundation Level (2010)</div>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div><strong>Testing:</strong><br>Mobile Game Testing, Test Planning, Test Automation, Manual Testing, Exploratory Testing, Bug Triage, F2P Games, LiveOps</div>
+                <div><strong>Tools:</strong><br>AWS Device Farm, Jenkins, Jira, TestRail, Xray, Confluence, Unity, GameBench, Git, Perforce</div>
+                <div><strong>Platforms:</strong><br>iOS, Android, Unity Engine, Firebase, Symbian, Embedded Linux</div>
+                <div><strong>Leadership:</strong><br>Team Management (15+ people), QA Strategy, Release Management, Vendor Management, Agile/Scrum</div>
+                <div><strong>Languages:</strong><br>Finnish (Native), English (Fluent), Swedish (Basic)</div>
+            </div>
+        </div>
+
+        <div class="print-section" style="margin-top: 30px; font-size: 9pt; color: #666; text-align: center; border-top: 1px solid #ddd; padding-top: 10px;">
+            References available upon request | Portfolio and recommendations: linkedin.com/in/timokahilakoski
+        </div>
+    </div>
+
+    <!-- WORK EXPERIENCE MODALS -->
+    <div id="modal-crown" class="modal-overlay" onclick="closeModal('crown', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('crown')">×</button>
+            <div class="modal-hero" style="background-image: url('crown.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">THE CROWN</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">98% Match</span>
+                        <span>2023-Present</span>
+                        <span>•</span>
+                        <span>QA Leadership</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Strategy</span>
+                        <span class="modal-tag">Team Management</span>
+                        <span class="modal-tag">F2P Mobile</span>
+                        <span class="modal-tag">LiveOps</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Leading QA operations for Merge Mansion at Metacore, a Helsinki-based mobile game studio. Responsible for defining and executing QA strategy for one of the most successful merge games globally, with millions of active players. Leading a team of 15 testers.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Own and drive QA strategy for Merge Mansion (live F2P mobile game)</li>
+                        <li>Lead and mentor a team of 15 QA professionals</li>
+                        <li>Hands-on testing for critical features and releases</li>
+                        <li>Coordinate closely with Analytics and LiveOps teams</li>
+                        <li>Establish QA processes and best practices</li>
+                        <li>Manage release quality and risk assessment</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">15</span><span class="modal-stat-label">Team Members</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Team</span><span class="modal-stat-label">Leadership</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">F2P</span><span class="modal-stat-label">Expert</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-black" class="modal-overlay" onclick="closeModal('black', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('black')">×</button>
+            <div class="modal-hero" style="background-image: url('blackmirror.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">BLACK MIRROR</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">95% Match</span>
+                        <span>2022-2023</span>
+                        <span>•</span>
+                        <span>Netflix Studio</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Netflix</span>
+                        <span class="modal-tag">Story-driven</span>
+                        <span class="modal-tag">Mobile Testing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Senior QA for a story-driven puzzle role-playing match-3 F2P game at Next Games (Netflix Studio). Responsible for game testing, triaging issues, collaborating with other disciplines and contributing to overall product quality.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Achievements</h3>
+                    <ul class="modal-list">
+                        <li>Created and executed manual test cases across iOS/Android devices</li>
+                        <li>Defined test coverage and supported test strategy</li>
+                        <li>Triaged and followed up on reported issues</li>
+                        <li>Participated in retrospectives and sprint ceremonies</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">1</span><span class="modal-stat-label">Year</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Netflix</span><span class="modal-stat-label">Studio</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">RPG</span><span class="modal-stat-label">Game</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ozark" class="modal-overlay" onclick="closeModal('ozark', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('ozark')">×</button>
+            <div class="modal-hero" style="background-image: url('ozark.png'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">OZARK</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">92% Match</span>
+                        <span>2022</span>
+                        <span>•</span>
+                        <span>Senior QA Coordinator</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">F2P</span>
+                        <span class="modal-tag">End-to-End</span>
+                        <span class="modal-tag">Live Builds</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Handled the QA flow and release process for a mobile game project from start to finish at Skunkworks. Focused on making testing smooth and meaningful, collaborated with other disciplines, wrote test cases and made sure player-facing quality stayed high in every update.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Actively tested and validated game features, bugs and UX for a mobile game</li>
+                        <li>Coordinated outsourced testing and QA documentation</li>
+                        <li>Managed end-to-end QA flow and release process</li>
+                        <li>Ensured player-facing quality in every update</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">1</span><span class="modal-stat-label">Year</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">End-to</span><span class="modal-stat-label">End</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Live</span><span class="modal-stat-label">Ops</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-money" class="modal-overlay" onclick="closeModal('money', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('money')">×</button>
+            <div class="modal-hero" style="background-image: url('moneyheist.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">MONEY HEIST</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">96% Match</span>
+                        <span>2018-2022</span>
+                        <span>•</span>
+                        <span>Senior QA Coordinator</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Live Ops</span>
+                        <span class="modal-tag">Team Lead</span>
+                        <span class="modal-tag">4 Years</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Led QA for live features in F2P puzzle games at Seriously Digital. Oversaw functional testing, guided junior testers and ensured quality control across multiple feature releases and platforms.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Achievements</h3>
+                    <ul class="modal-list">
+                        <li>Actively tested and validated game features, bugs and UX for mobile games</li>
+                        <li>QA lead for feature sprints and release pipelines</li>
+                        <li>Created test documentation and tracked bug quality</li>
+                        <li>Coordinated external testing</li>
+                        <li>Team lead for the internal QA team</li>
+                        <li>Submitted builds to iOS, Android & Amazon</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">4</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Live</span><span class="modal-stat-label">Ops</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Team</span><span class="modal-stat-label">Lead</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-witcher" class="modal-overlay" onclick="closeModal('witcher', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('witcher')">×</button>
+            <div class="modal-hero" style="background-image: url('witcher.png'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">THE WITCHER</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">94% Match</span>
+                        <span>2016-2018</span>
+                        <span>•</span>
+                        <span>Game Producer</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">PvP Games</span>
+                        <span class="modal-tag">Production</span>
+                        <span class="modal-tag">Rovio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Managed a real-time PvP mobile game project from prototyping to late development at Rovio. Responsible for production workflows, scheduling and daily team coordination. Budget and forecasting responsibility.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Managed real-time PvP mobile game projects</li>
+                        <li>Defined production schedules and tasking for disciplines</li>
+                        <li>Managed risk and interdependencies</li>
+                        <li>Led communication between design, engineering, Art and QA</li>
+                        <li>Budget and forecasting responsibility</li>
+                        <li>Managed projects from Prototype to Late Production</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">2</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">PvP</span><span class="modal-stat-label">Games</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Budget</span><span class="modal-stat-label">Mgmt</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-stranger" class="modal-overlay" onclick="closeModal('stranger', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('stranger')">×</button>
+            <div class="modal-hero" style="background-image: url('strangerthings.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">STRANGER THINGS</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">90% Match</span>
+                        <span>2011-2016</span>
+                        <span>•</span>
+                        <span>QA Lead / Associate Producer</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Rovio</span>
+                        <span class="modal-tag">Digital Chocolate</span>
+                        <span class="modal-tag">5 Years</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    QA lead and production support for F2P idle clicker titles and mobile games. Helped manage sprint execution, QA execution and outsourced testing. Lots of hands-on testing and production-related tasks throughout project lifecycles.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Put together test plans and feature-based test cases</li>
+                        <li>Prioritised and executed the QA tasks</li>
+                        <li>Created project documentation and milestone tracking</li>
+                        <li>Tested and validated game features, bugs and UX for mobile games</li>
+                        <li>Designed high and low-level test cases</li>
+                        <li>Communicated testing needs to other stakeholders</li>
+                        <li>Coordinated outsourced QA vendors</li>
+                        <li>Signed off builds for store submission</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">5</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Lead</span><span class="modal-stat-label">Role</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">F2P</span><span class="modal-stat-label">Games</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-wednesday" class="modal-overlay" onclick="closeModal('wednesday', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('wednesday')">×</button>
+            <div class="modal-hero" style="background-image: url('wednesday.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">WEDNESDAY</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">88% Match</span>
+                        <span>2005-2011</span>
+                        <span>•</span>
+                        <span>Senior Test Engineer & Error Manager</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Symbian</span>
+                        <span class="modal-tag">Automation</span>
+                        <span class="modal-tag">6 Years</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Worked across multiple projects in automation, telecom, and embedded testing at Ixonos. Led error handling processes, created test environments and executed manual and exploratory tests.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Led test execution in Symbian and embedded Linux</li>
+                        <li>Maintained error databases and triaged bugs</li>
+                        <li>Worked on virtual environments (VMware, vSphere)</li>
+                        <li>Created test environments</li>
+                        <li>Executed manual and exploratory tests</li>
+                        <li>Led error handling processes</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">6</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Symbian</span><span class="modal-stat-label">Expert</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Auto</span><span class="modal-stat-label">mation</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-bridge" class="modal-overlay" onclick="closeModal('bridge', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('bridge')">×</button>
+            <div class="modal-hero" style="background-image: url('theirishman.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">THE IRISHMAN</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">85% Match</span>
+                        <span>2005</span>
+                        <span>•</span>
+                        <span>IT Support</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Hardware</span>
+                        <span class="modal-tag">Networks</span>
+                        <span class="modal-tag">Foundation</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    IT Support at Wema Service Oy. Foundation role focusing on hardware installation, network configuration, and system troubleshooting in W2K/Win NT4 environments.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Responsibilities</h3>
+                    <ul class="modal-list">
+                        <li>Installing and configuring computer hardware</li>
+                        <li>Operating systems and applications setup</li>
+                        <li>Network device installation</li>
+                        <li>Troubleshooting W2K/Win NT4 environments</li>
+                        <li>User support and training</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">1</span><span class="modal-stat-label">Year</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">IT</span><span class="modal-stat-label">Support</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Found</span><span class="modal-stat-label">ation</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDUCATION MODALS -->
+    <div id="modal-tampere" class="modal-overlay" onclick="closeModal('tampere', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('tampere')">×</button>
+            <div class="modal-hero" style="background-image: url('narcos.png'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo" style="font-size: 3rem;">UNIVERSITY OF TAMPERE</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Master's Level</span>
+                        <span>2005-2006</span>
+                        <span>•</span>
+                        <span>SW Production Testing</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Quality Assurance</span>
+                        <span class="modal-tag">Testing Methodologies</span>
+                        <span class="modal-tag">ISO Standards</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Advanced studies in Software Production Testing focusing on quality assurance frameworks, test automation strategies, and software quality metrics. Studies included ISO/IEC 9126 and ISO/IEC 25000 quality standards, continuous integration testing, and industrial software development practices.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Studies</h3>
+                    <ul class="modal-list">
+                        <li>Software Quality Analysis & Metrics</li>
+                        <li>Test Automation Frameworks</li>
+                        <li>Continuous Integration Testing</li>
+                        <li>ISO/IEC 25010 Quality Standards</li>
+                        <li>Agile Testing Methodologies</li>
+                        <li>Software Reliability Engineering</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">60</span><span class="modal-stat-label">ECTS Credits</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">A</span><span class="modal-stat-label">Grade</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">1 yr</span><span class="modal-stat-label">Duration</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hamk-network" class="modal-overlay" onclick="closeModal('hamk-network', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('hamk-network')">×</button>
+            <div class="modal-hero" style="background-image: url('spectral.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo" style="font-size: 3rem;">HAMK</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Bachelor Level</span>
+                        <span>2004-2005</span>
+                        <span>•</span>
+                        <span>Computer Mechanic</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Network Admin</span>
+                        <span class="modal-tag">Hardware</span>
+                        <span class="modal-tag">Telecom</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Professional Bachelor-level degree in Information Technology specializing in Network and Telecommunications. Finnish polytechnic (ammattikorkeakoulu) education combining theoretical studies with hands-on practical training in enterprise network environments.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Core Competencies</h3>
+                    <ul class="modal-list">
+                        <li>Network Configuration & Administration (Windows/Linux)</li>
+                        <li>Computer Hardware Assembly & Maintenance</li>
+                        <li>Telecommunication Systems & Protocols</li>
+                        <li>Server Installation & Management</li>
+                        <li>Network Security Fundamentals</li>
+                        <li>Cabling & Infrastructure</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">180</span><span class="modal-stat-label">Credit Points</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">3.5</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">EQF 6</span><span class="modal-stat-label">Level</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hamk-elec" class="modal-overlay" onclick="closeModal('hamk-elec', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('hamk-elec')">×</button>
+            <div class="modal-hero" style="background-image: url('dark.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo" style="font-size: 3rem; color: white;">HAMK</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Bachelor Level</span>
+                        <span>2002-2004</span>
+                        <span>•</span>
+                        <span>Electronic Mechanic</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Electrical</span>
+                        <span class="modal-tag">Automation</span>
+                        <span class="modal-tag">Electronics</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Bachelor-level studies in Electrical Engineering and Automation Technology. Foundation in electrical systems, automation technology, and electronic device maintenance.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Study Modules</h3>
+                    <ul class="modal-list">
+                        <li>Electrical Installations & Safety Standards</li>
+                        <li>Automation Systems & PLCs</li>
+                        <li>Electronic Device Repair & Maintenance</li>
+                        <li>Power Plant Mechanics Basics</li>
+                        <li>Measurement & Control Technology</li>
+                        <li>Industrial Electronics</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">180</span><span class="modal-stat-label">Credit Points</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">3.5</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">EQF 5</span><span class="modal-stat-label">Level</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-business" class="modal-overlay" onclick="closeModal('business', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('business')">×</button>
+            <div class="modal-hero" style="background-image: url('birdbox.png'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo" style="font-size: 2.5rem; color: white;">BUSINESS SCHOOL</div>
+                    <div class="modal-meta" style="color: #1a1a1a;">
+                        <span class="modal-match" style="color: #1a1a1a;">Completed</span>
+                        <span>1996-1999</span>
+                        <span>•</span>
+                        <span>Vocational</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">IT</span>
+                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">Business</span>
+                        <span class="modal-tag" style="border-color: #1a1a1a; color: #1a1a1a;">Admin</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    Finnish vocational qualification in Information Technology and Business Administration (Liketoiminnan perustutkinto / Merkonomi). Three-year secondary level education providing foundational skills for business IT environments, customer service, and office administration.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Curriculum Highlights</h3>
+                    <ul class="modal-list">
+                        <li>IT Systems & Office Software</li>
+                        <li>Business Administration Basics</li>
+                        <li>Customer Service & Communication</li>
+                        <li>Financial Management Fundamentals</li>
+                        <li>Marketing & Sales Support</li>
+                        <li>Data Processing & Documentation</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">120</span><span class="modal-stat-label">Credit Points</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">3</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">EQF 4</span><span class="modal-stat-label">Level</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATION MODALS -->
+    <div id="modal-agile" class="modal-overlay" onclick="closeModal('agile', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('agile')">×</button>
+            <div class="modal-hero" style="background-image: url('axelfoley.jpg'); background-size: cover; background-position: center 10%;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">ISTQB</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">ISTQB</span>
+                        <span>Agile Tester</span>
+                        <span>•</span>
+                        <span>Foundation Level - 2020</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Agile Testing</span>
+                        <span class="modal-tag">Scrum</span>
+                        <span class="modal-tag">Kanban</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I took the ISTQB Agile Tester certification in 2020 to put a shared framework and language around the Agile testing work I had already been doing for years in game teams.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Competencies</h3>
+                    <ul class="modal-list">
+                        <li>Applying Agile testing principles in day-to-day development</li>
+                        <li>Working in Scrum and Kanban teams without separate "QA phases"</li>
+                        <li>Collaborating closely with developers and product owners</li>
+                        <li>Testing as part of continuous delivery, not just before release</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">2020</span><span class="modal-stat-label">Certified</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">ISTQB</span><span class="modal-stat-label">Agile</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Active</span><span class="modal-stat-label">Use</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-scrum" class="modal-overlay" onclick="closeModal('scrum', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('scrum')">×</button>
+            <div class="modal-hero" style="background-image: url('hustle.jpg'); background-size: cover; background-position: center 25%;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">SCRUM ALLIANCE</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Scrum Alliance</span>
+                        <span>Certified Scrum Master</span>
+                        <span>•</span>
+                        <span>2017</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Scrum</span>
+                        <span class="modal-tag">Agile Leadership</span>
+                        <span class="modal-tag">Facilitation</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I completed the Certified Scrum Master training in 2017 to better support teams I was already working with in Agile game development.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">What I Learned</h3>
+                    <ul class="modal-list">
+                        <li>Understanding Scrum roles and responsibilities in real team setups</li>
+                        <li>Facilitating sprint planning and keeping discussions focused</li>
+                        <li>Spotting and removing blockers before they slow teams down</li>
+                        <li>Supporting teams as they move toward self-organization</li>
+                        <li>Running retrospectives that actually lead to change</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">How I Apply It</h3>
+                    <ul class="modal-list">
+                        <li>Facilitate sprint planning and retrospectives when needed</li>
+                        <li>Help QA fit smoothly into Scrum workflows instead of working on the side</li>
+                        <li>Coach junior testers on practical Agile ways of working</li>
+                        <li>Work closely with Scrum Masters and Product Owners to keep quality visible</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">2017</span><span class="modal-stat-label">Certified</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Reaktor</span><span class="modal-stat-label">Helsinki</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">CSM</span><span class="modal-stat-label">Active</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-foundation" class="modal-overlay" onclick="closeModal('foundation', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('foundation')">×</button>
+            <div class="modal-hero" style="background-image: url('da5bloods.jpg'); background-size: cover; background-position: center 25%;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">ISTQB</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">ISTQB</span>
+                        <span>Foundation Level</span>
+                        <span>•</span>
+                        <span>2010</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Test Fundamentals</span>
+                        <span class="modal-tag">Test Design</span>
+                        <span class="modal-tag">Test Management</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I took the ISTQB Foundation Level certification in 2010 to formalize testing work I had already been doing since the mid-2000s.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Core Knowledge</h3>
+                    <ul class="modal-list">
+                        <li>Core testing concepts and why we test in the first place</li>
+                        <li>Designing test cases that cover real user scenarios</li>
+                        <li>Planning and organizing testing work in larger efforts</li>
+                        <li>Understanding defects, reporting them clearly, and following them through</li>
+                        <li>Getting familiar with test tools as part of everyday QA work</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Career Impact</h3>
+                    <ul class="modal-list">
+                        <li>Gave me a common QA language early in my career</li>
+                        <li>Helped me step into QA roles in game development</li>
+                        <li>Served as a base I later built on through hands-on experience</li>
+                        <li>Supported later Agile-focused testing work</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">2010</span><span class="modal-stat-label">Certified</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Reaktor</span><span class="modal-stat-label">Helsinki</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">15+</span><span class="modal-stat-label">Years Applied</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOOLS & TECH MODALS -->
+    <div id="modal-aws" class="modal-overlay" onclick="closeModal('aws', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('aws')">×</button>
+            <div class="modal-hero" style="background-image: url('alteredcarbon.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">ALTERED CARBON</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Cloud & Testing</span>
+                        <span>AWS Device Farm</span>
+                        <span>•</span>
+                        <span>Firebase Test Lab</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Cloud Testing</span>
+                        <span class="modal-tag">Automation</span>
+                        <span class="modal-tag">Device Matrix</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    In some mobile game projects I have used AWS Device Farm extensively for Unity LTS upgrade validation. Given the extreme fragmentation of the Android device ecosystem, running builds on physical devices was critical to catch device-specific issues before they reached players.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">What I Did</h3>
+                    <ul class="modal-list">
+                        <li>Ran Merge Mansion builds on 100+ real devices via AWS Device Farm during Unity LTS upgrades</li>
+                        <li>Validated that Unity LTS updates didn't introduce regressions across diverse Android devices</li>
+                        <li>Caught device-specific rendering and performance issues before production deployment</li>
+                        <li>AWS Device Farm was integrated with Metacore's internal test automation tool</li>
+                        <li>Analyzed test results and reported critical findings to the engineering team</li>
+                        <li>Built confidence for major engine updates through comprehensive device coverage</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Why It Mattered</h3>
+                    <ul class="modal-list">
+                        <li>Android device fragmentation makes emulator testing insufficient</li>
+                        <li>Unity LTS updates can introduce subtle rendering or performance changes</li>
+                        <li>Catching issues pre-release prevented negative player reviews and churn</li>
+                        <li>Automated cloud testing saved weeks of manual device lab work</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">100+</span><span class="modal-stat-label">Devices/Test</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Unity</span><span class="modal-stat-label">LTS Updates</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Cloud</span><span class="modal-stat-label">Automation</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-jenkins" class="modal-overlay" onclick="closeModal('jenkins', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('jenkins')">×</button>
+            <div class="modal-hero" style="background-image: url('mindhunter.jpg'); background-size: cover; background-position: center 15%;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">MINDHUNTER</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">CI/CD & DevOps</span>
+                        <span>Jenkins</span>
+                        <span>•</span>
+                        <span>Git • Perforce</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Build Automation</span>
+                        <span class="modal-tag">Version Control</span>
+                        <span class="modal-tag">DevOps</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I've used Jenkins, Git and Perforce throughout my career in game development QA. While I'm not a DevOps engineer, I know my way around build configurations and version control - enough to troubleshoot issues and keep the QA pipeline flowing.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">What I Did</h3>
+                    <ul class="modal-list">
+                        <li>Used Jenkins for build monitoring and basic configuration</li>
+                        <li>Worked with Git and Perforce for version control and branching</li>
+                        <li>Checked build status and reported failures to the dev team</li>
+                        <li>Verified that builds were ready for QA testing</li>
+                        <li>Collaborated with developers when builds broke</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">How I Work</h3>
+                    <ul class="modal-list">
+                        <li>Monitor build dashboards and alert teams to issues</li>
+                        <li>Basic Git/Perforce operations for QA needs</li>
+                        <li>Understand enough to communicate effectively with DevOps</li>
+                        <li>Focus on what QA needs: stable builds for testing</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">Git &</span><span class="modal-stat-label">Perforce</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Build</span><span class="modal-stat-label">Monitoring</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Dev</span><span class="modal-stat-label">Collaboration</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-jira" class="modal-overlay" onclick="closeModal('jira', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('jira')">×</button>
+            <div class="modal-hero" style="background-image: url('thekilling.jpg'); background-size: cover; background-position: center 25%;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">THE KILLING</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Project Management</span>
+                        <span>Jira • Linear • Testiny</span>
+                        <span>•</span>
+                        <span>TestRail • Xray</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Agile/Scrum</span>
+                        <span class="modal-tag">Bug Tracking</span>
+                        <span class="modal-tag">Test Management</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I've used Jira daily for years across multiple studios - it's second nature to me. I know my way around Jira workflows, custom fields, and reporting. Recently I've also been using Linear for project management and Testiny for test management.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">What I Did</h3>
+                    <ul class="modal-list">
+                        <li>Daily Jira use for sprint planning, task tracking, and team coordination</li>
+                        <li>Created and managed bug tickets with proper reproduction steps and severity</li>
+                        <li>Triaged incoming bugs, assigned them to the right teams, and tracked resolution</li>
+                        <li>Built custom JQL queries and filters to track QA metrics and sprint progress</li>
+                        <li>Used TestRail/Xray and recently Testiny for test case management</li>
+                        <li>Used Linear for project and bug management in recent projects</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">How I Work</h3>
+                    <ul class="modal-list">
+                        <li>Fast bug reporting with clear steps and screenshots/videos</li>
+                        <li>Effective use of labels, components, and custom fields for organization</li>
+                        <li>Regular backlog grooming to keep QA priorities visible</li>
+                        <li>Dashboards and filters for tracking team velocity and bug trends</li>
+                        <li>Collaboration with developers, producers, and other stakeholders through comments</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">Daily</span><span class="modal-stat-label">User</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Power</span><span class="modal-stat-label">User</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Years</span><span class="modal-stat-label">Experience</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-unity" class="modal-overlay" onclick="closeModal('unity', event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('unity')">×</button>
+            <div class="modal-hero" style="background-image: url('queensgambit.jpg'); background-size: cover; background-position: center;">
+                <div class="modal-hero-content">
+                    <div class="modal-logo">QUEEN'S GAMBIT</div>
+                    <div class="modal-meta">
+                        <span class="modal-match">Game Development</span>
+                        <span>Unity • GameBench</span>
+                        <span>•</span>
+                        <span>Android Studio • Xcode</span>
+                    </div>
+                    <div class="modal-tags">
+                        <span class="modal-tag">Game Engine</span>
+                        <span class="modal-tag">Performance Profiling</span>
+                        <span class="modal-tag">Mobile Dev</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-description">
+                    I have been working with Unity for many years. I have spent countless hours in the Unity editor testing builds and hunting down bugs. GameBench has been my go-to tool for understanding how our games actually perform on real devices. And in my current mobile game project, GameBench tests game performance via automation.
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">What I Did</h3>
+                    <ul class="modal-list">
+                        <li>Daily Unity Editor testing - smoke testing builds before they go to the wider QA team</li>
+                        <li>Used GameBench to profile FPS, memory usage, and CPU load on real devices</li>
+                        <li>Identified performance bottlenecks and reported them to developers with data</li>
+                        <li>Verified that new features didn't cause frame drops or memory leaks</li>
+                        <li>Tested asset bundles and content updates to ensure they load correctly</li>
+                        <li>Investigated device-specific rendering issues and reported them with Unity logs</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">How I Work</h3>
+                    <ul class="modal-list">
+                        <li>Quick sanity checks in Unity Editor before deep testing</li>
+                        <li>GameBench sessions to catch performance regressions early</li>
+                        <li>Comparing builds side-by-side to spot FPS drops or memory increases</li>
+                        <li>Working closely with developers to reproduce and isolate Unity-related bugs</li>
+                        <li>Checking that builds work across different Unity versions after LTS updates</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Impact</h3>
+                    <ul class="modal-list">
+                        <li>Caught performance issues before they reached players</li>
+                        <li>Provided developers with concrete data instead of "it feels slow"</li>
+                        <li>Reduced crash rates by identifying memory problems early</li>
+                        <li>Helped maintain smooth 60 FPS gameplay across device tiers</li>
+                    </ul>
+                </div>
+                <div class="modal-stats">
+                    <div class="modal-stat"><span class="modal-stat-number">15</span><span class="modal-stat-label">Years</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Unity</span><span class="modal-stat-label">Expert</span></div>
+                    <div class="modal-stat"><span class="modal-stat-number">Data</span><span class="modal-stat-label">Driven</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" id="navbar">
+        <div class="logo">TIMO KAHILAKOSKI</div>
+        <div class="nav-links">
+            <a href="#experience">Experience</a>
+            <a href="#tools">Tools</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <div class="profile-menu-container" style="position: relative; margin-left: 10px;">
+                <div class="profile-button" onclick="toggleProfileMenu(event)" style="width: 32px; height: 32px; background: linear-gradient(135deg, #9B7CB6 0%, #7B5A9E 100%); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; font-weight: 600; cursor: pointer;">TK</div>
+                <div class="profile-dropdown" id="profileDropdown" style="display: none; position: absolute; top: 45px; right: 0; background: rgba(20, 20, 20, 0.98); border-radius: 4px; padding: 16px; min-width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 2000;">
+                    <div style="margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #333;">
+                        <div style="color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Timo Kahilakoski</div>
+                        <div style="color: #a8a8a8; font-size: 0.85rem;">QA Test Lead – Mobile Games</div>
+                    </div>
+                    <div class="profile-menu-item" onclick="scrollToHero()" style="padding: 10px 0; color: #e6e6e6; font-size: 0.9rem; cursor: pointer; transition: color 0.2s;">View profile</div>
+                    <a href="Timo_Kahilakoski_CV.pdf" download style="display: block; padding: 10px 0; color: #e6e6e6; font-size: 0.9rem; text-decoration: none; transition: color 0.2s;">Download CV</a>
+                    <a href="https://linkedin.com/in/timokahilakoski" target="_blank" style="display: block; padding: 10px 0; color: #e6e6e6; font-size: 0.9rem; text-decoration: none; transition: color 0.2s;">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-rating">
+                <span class="match">99% Match</span>
+                <span class="year">2026</span>
+                <span class="duration">15+ Years in Gaming Industry</span>
+            </div>
+            <h1>TIMO KAHILAKOSKI</h1>
+            <div class="hero-subtitle">QA Test Lead | Mobile Games</div>
+            <p class="hero-description">
+                Experienced QA professional with over 15 years in mobile and software testing, from hands-on bug hunting to leading QA strategy and release readiness. I have worked across F2P live games, platform compliance, crash triage, CI/CD pipelines, vendor management and always focused on quality that scales.
+            </p>
+            
+            <div class="languages-bar">
+                <div class="language-item">
+                    <span class="lang-flag">🇫🇮</span>
+                    <span>Finnish</span>
+                    <span class="lang-level">Native</span>
+                </div>
+                <div class="language-item">
+                    <span class="lang-flag">🇬🇧</span>
+                    <span>English</span>
+                    <span class="lang-level">Fluent</span>
+                </div>
+            </div>
+            
+            <div class="hero-buttons" style="margin-top: 30px;">
+                <a href="Timo_Kahilakoski_CV.pdf" download class="btn btn-play" style="text-decoration: none;">
+                    <span>▶</span> Download CV
+                </a>
+                <button class="btn btn-more" onclick="document.getElementById('experience').scrollIntoView({behavior: 'smooth'})">
+                    <span>ℹ</span> More Info
+                </button>
+            </div>
+        </div>
+        
+        <div class="qr-section">
+            <div class="scan-text">SCAN TO CONNECT</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwww.linkedin.com%2Fin%2Ftimokahilakoski%2F " alt="LinkedIn QR" class="qr-code">
+            <div class="qr-text">LinkedIn Profile</div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE ROW -->
+    <section class="content-row" id="experience">
+        <div class="row-header">
+            <h2 class="row-title">Trending Now <span class="row-count">Current</span></h2>
+        </div>
+        <div class="slider">
+            <div class="card show-crown" onclick="openModal('crown')" data-modal="crown">
+                <div class="top-badge">1</div>
+                <div class="card-overlay">
+                    <div class="card-logo">THE CROWN</div>
+                    <div class="card-title">QA Manager</div>
+                    <div style="font-size: 0.75rem; color: #a8a8a8; margin-bottom: 4px;">Test Leadership & Quality Ownership</div>
+                    <div class="card-meta">Metacore • 2023-Present</div>
+                    <div class="card-tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">15 Testers</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-black" onclick="openModal('black')" data-modal="black">
+                <div class="top-badge">2</div>
+                <div class="card-overlay">
+                    <div class="card-logo">BLACK MIRROR</div>
+                    <div class="card-title">Senior QA Tester</div>
+                    <div class="card-meta">Next Games • 2022-2023</div>
+                    <div class="card-tags">
+                        <span class="tag">Netflix</span>
+                        <span class="tag">Story-driven</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-ozark" onclick="openModal('ozark')" data-modal="ozark">
+                <div class="top-badge">3</div>
+                <div class="card-overlay">
+                    <div class="card-logo">OZARK</div>
+                    <div class="card-title">Senior QA Coordinator</div>
+                    <div class="card-meta">Skunkworks • 2022</div>
+                    <div class="card-tags">
+                        <span class="tag">End-to-End</span>
+                        <span class="tag">F2P</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-money" onclick="openModal('money')" data-modal="money">
+                <div class="top-badge">4</div>
+                <div class="card-overlay">
+                    <div class="card-logo">MONEY HEIST</div>
+                    <div class="card-title">Senior QA Coordinator</div>
+                    <div class="card-meta">Seriously Digital • 2018-2022</div>
+                    <div class="card-tags">
+                        <span class="tag">-40% Bugs</span>
+                        <span class="tag">Team Lead</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREVIOUS EXPERIENCE -->
+    <section class="content-row">
+        <div class="row-header">
+            <h2 class="row-title">Continue Watching <span class="row-count">Previous</span></h2>
+        </div>
+        <div class="slider">
+            <div class="card show-witcher" onclick="openModal('witcher')" data-modal="witcher">
+                <div class="card-overlay">
+                    <div class="card-logo">THE WITCHER</div>
+                    <div class="card-title">Game Producer</div>
+                    <div class="card-meta">Rovio • 2016-2018</div>
+                    <div class="card-tags">
+                        <span class="tag">PvP</span>
+                        <span class="tag">Budget</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-stranger" onclick="openModal('stranger')" data-modal="stranger">
+                <div class="card-overlay">
+                    <div class="card-logo">STRANGER THINGS</div>
+                    <div class="card-title">QA Lead / Associate Producer</div>
+                    <div class="card-meta">Rovio & Digital Chocolate • 2011-2016</div>
+                    <div class="card-tags">
+                        <span class="tag">5 Years</span>
+                        <span class="tag">F2P</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-wednesday" onclick="openModal('wednesday')" data-modal="wednesday">
+                <div class="card-overlay">
+                    <div class="card-logo">WEDNESDAY</div>
+                    <div class="card-title">Senior Test Engineer</div>
+                    <div class="card-meta">Ixonos • 2005-2011</div>
+                    <div class="card-tags">
+                        <span class="tag">Symbian</span>
+                        <span class="tag">VMware</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+
+            <div class="card show-bridge" onclick="openModal('bridge')" data-modal="bridge">
+                <div class="card-overlay">
+                    <div class="card-logo">THE IRISHMAN</div>
+                    <div class="card-title">IT Support</div>
+                    <div class="card-meta">Wema Service • 2005</div>
+                    <div class="card-tags">
+                        <span class="tag">Hardware</span>
+                        <span class="tag">Networks</span>
+                    </div>
+                    <div class="card-details">Click for more details ▸</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOOLS & PLATFORMS -->
+    <section class="content-row" id="tools">
+        <div class="row-header">
+            <h2 class="row-title">Behind the Scenes <span class="row-count">Tools & Tech</span></h2>
+        </div>
+        <div class="slider">
+            <div class="card show-aws" onclick="openModal('aws')" data-modal="aws">
+                <div class="card-overlay">
+                    <div class="card-logo">ALTERED CARBON</div>
+                    <div class="card-title">AWS Device Farm</div>
+                    <div class="card-meta">Firebase Test Lab</div>
+                    <div class="card-tags">
+                        <span class="tag">Cloud</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card show-jenkins" onclick="openModal('jenkins')" data-modal="jenkins">
+                <div class="card-overlay">
+                    <div class="card-logo">MINDHUNTER</div>
+                    <div class="card-title">Jenkins • Git • Perforce</div>
+                    <div class="card-meta">CI/CD • Version Control</div>
+                    <div class="card-tags">
+                        <span class="tag">DevOps</span>
+                        <span class="tag">Build Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card show-jira" onclick="openModal('jira')" data-modal="jira">
+                <div class="card-overlay">
+                    <div class="card-logo">THE KILLING</div>
+                    <div class="card-title">Jira • Linear • Testiny</div>
+                    <div class="card-meta">TestRail • Xray • Confluence</div>
+                    <div class="card-tags">
+                        <span class="tag">Agile</span>
+                        <span class="tag">Bug Tracking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card show-unity" onclick="openModal('unity')" data-modal="unity">
+                <div class="card-overlay">
+                    <div class="card-logo">QUEEN'S GAMBIT</div>
+                    <div class="card-title">Unity • GameBench</div>
+                    <div class="card-meta">Android Studio • Xcode</div>
+                    <div class="card-tags">
+                        <span class="tag">Profiling</span>
+                        <span class="tag">Mobile Dev</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="content-row" id="education">
+        <div class="row-header">
+            <h2 class="row-title">Classics <span class="row-count">Education</span></h2>
+        </div>
+        <div class="slider">
+            <div class="card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);" onclick="openModal('tampere')" data-modal="tampere">
+                <div class="card-overlay">
+                    <div class="card-logo" style="color: #fff; font-size: 1.3rem;">UNIVERSITY OF TAMPERE</div>
+                    <div class="card-title">SW Production Testing</div>
+                    <div class="card-meta">2005-2006 • Tampere</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" onclick="openModal('hamk-network')" data-modal="hamk-network">
+                <div class="card-overlay">
+                    <div class="card-logo" style="color: #fff; font-size: 1.3rem;">HAMK</div>
+                    <div class="card-title">Network & Telecom</div>
+                    <div class="card-meta">2004-2005 • Computer Mechanic</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('hamk-elec')" data-modal="hamk-elec">
+                <div class="card-overlay">
+                    <div class="card-logo" style="color: #fff; font-size: 1.3rem;">HAMK</div>
+                    <div class="card-title">Electrical Engineering</div>
+                    <div class="card-meta">2002-2004 • Electronic Mechanic</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);" onclick="openModal('business')" data-modal="business">
+                <div class="card-overlay">
+                    <div class="card-logo" style="color: #1a1a1a; font-size: 1.3rem;">BUSINESS SCHOOL</div>
+                    <div class="card-title">Vocational Qualification</div>
+                    <div class="card-meta">1996-1999 • IT</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="content-row" id="certs">
+        <div class="row-header">
+            <h2 class="row-title">New Releases <span class="row-count">Certifications</span></h2>
+        </div>
+        <div class="slider">
+            <div class="card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border: 2px solid #E50914;" onclick="openModal('agile')" data-modal="agile">
+                <div class="card-overlay">
+                    <div class="card-logo">ISTQB</div>
+                    <div class="card-title">Agile Tester</div>
+                    <div class="card-meta">Foundation Level - 2020</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #e50914 0%, #b20710 100%); border: 2px solid #E50914;" onclick="openModal('scrum')" data-modal="scrum">
+                <div class="card-overlay">
+                    <div class="card-logo">SCRUM ALLIANCE</div>
+                    <div class="card-title">Certified Scrum Master</div>
+                    <div class="card-meta">Reaktor, Helsinki • 2017</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); border: 2px solid #E50914;" onclick="openModal('foundation')" data-modal="foundation">
+                <div class="card-overlay">
+                    <div class="card-logo">ISTQB</div>
+                    <div class="card-title">Foundation Level</div>
+                    <div class="card-meta">Reaktor • 2010</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="content-row" id="skills">
+        <div class="row-header">
+            <h2 class="row-title">My List <span class="row-count">Skills</span></h2>
+        </div>
+        <div class="skills-container">
+            <div class="skill-item" onclick="toggleSkill(this, 'QA Leadership')">
+                <span class="add-btn">+</span>
+                QA Leadership
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'QA Strategy')">
+                <span class="add-btn">+</span>
+                QA Strategy
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Test Strategy & Scheduling')">
+                <span class="add-btn">+</span>
+                Test Strategy & Scheduling
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'External QA & Vendor Management')">
+                <span class="add-btn">+</span>
+                External QA & Vendor Management
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Release Management')">
+                <span class="add-btn">+</span>
+                Release Management
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Quality Metrics & Analytics')">
+                <span class="add-btn">+</span>
+                Quality Metrics & Analytics
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Mobile Game Testing')">
+                <span class="add-btn">+</span>
+                Mobile Game Testing
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'F2P Games')">
+                <span class="add-btn">+</span>
+                F2P Games
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Live Ops')">
+                <span class="add-btn">+</span>
+                Live Ops
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'iOS / Android')">
+                <span class="add-btn">+</span>
+                iOS / Android
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Test Planning')">
+                <span class="add-btn">+</span>
+                Test Planning
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Bug Triage')">
+                <span class="add-btn">+</span>
+                Bug Triage
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Team Mentoring')">
+                <span class="add-btn">+</span>
+                Team Mentoring
+            </div>
+            <div class="skill-item" onclick="toggleSkill(this, 'Agile & Scrum')">
+                <span class="add-btn">+</span>
+                Agile & Scrum
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="row-header" style="margin-bottom: 30px;">
+            <h2 class="row-title">Contact Information</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div>
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-text">+358 40 523 1658</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-text">timo.kahilakoski@gmail.com</div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                    <div class="contact-label">Location</div>
+                    <div class="contact-text">Saunaniementie 3A, 02780 Espoo</div>
+                </div>
+            </div>
+            <div class="contact-item" style="cursor: pointer;" onclick="window.open('https://linkedin.com/in/timokahilakoski', '_blank')">
+                <div class="contact-icon">💼</div>
+                <div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-text">linkedin.com/in/timokahilakoski</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="tel:+358405231658">📱 Call</a>
+            <a href="mailto:timo.kahilakoski@gmail.com">✉️ Email</a>
+            <a href="https://linkedin.com/in/timokahilakoski " target="_blank">💼 LinkedIn</a>
+        </div>
+        <p>© 2026 Timo Kahilakoski | QA Test Lead</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">Helsinki, Finland • 500+ Connections • Open to new opportunities</p>
+    </footer>
+
+    <script>
+        let soundEnabled = false;
+        let audioContext = null;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        function playHoverSound() {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        function playClickSound() {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+        }
+        
+        function toggleProfileMenu(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        function scrollToHero() {
+            document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('profileDropdown').style.display = 'none';
+        }
+        
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profileButton = document.querySelector('.profile-button');
+            if (dropdown.style.display === 'block' && !profileButton.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.querySelector('.sound-toggle').innerHTML = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+        }
+        
+        function openModal(id) {
+            playClickSound();
+            document.getElementById('modal-' + id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id, event) {
+            if (!event || event.target.id === 'modal-' + id || event.target.classList.contains('modal-close')) {
+                document.getElementById('modal-' + id).classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(modal => modal.classList.remove('active'));
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // MOBILE TOUCH SUPPORT
+        document.querySelectorAll('.card').forEach(card => {
+            // Touch start - add visual feedback
+            card.addEventListener('touchstart', function(e) {
+                this.classList.add('touch-active');
+            }, {passive: true});
+            
+            // Touch end - remove visual feedback and open modal
+            card.addEventListener('touchend', function(e) {
+                this.classList.remove('touch-active');
+                // Get modal id from data attribute or onclick
+                const modalId = this.getAttribute('data-modal');
+                if (modalId) {
+                    setTimeout(() => {
+                        openModal(modalId);
+                    }, 100);
+                }
+            }, {passive: true});
+            
+            // Remove active state if touch is cancelled
+            card.addEventListener('touchcancel', function(e) {
+                this.classList.remove('touch-active');
+            }, {passive: true});
+        });
+        
+        let myList = [];
+        
+        function toggleSkill(element, skill) {
+            playClickSound();
+            element.classList.toggle('added');
+            
+            if (element.classList.contains('added')) {
+                if (!myList.includes(skill)) {
+                    myList.push(skill);
+                }
+                element.querySelector('.add-btn').textContent = '✓';
+            } else {
+                myList = myList.filter(s => s !== skill);
+                element.querySelector('.add-btn').textContent = '+';
+            }
+            
+            updateMyListCounter();
+        }
+        
+        function updateMyListCounter() {
+            const counter = document.getElementById('myListCounter');
+            const count = document.getElementById('listCount');
+            count.textContent = myList.length;
+            
+            if (myList.length > 0) {
+                counter.classList.add('active');
+            } else {
+                counter.classList.remove('active');
+            }
+        }
+        
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Better horizontal scrolling for mobile
+        document.querySelectorAll('.slider').forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            
+            // Wheel support
+            slider.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    slider.scrollLeft += e.deltaY;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
