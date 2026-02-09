@@ -2585,8 +2585,29 @@
             document.body.style.overflow = 'hidden';
         }
         
+        function playCloseSound() {
+            if (!soundEnabled) return;
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.15);
+            
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+        }
+        
         function closeModal(id, event) {
             if (!event || event.target.id === 'modal-' + id || event.target.classList.contains('modal-close')) {
+                playCloseSound();
                 document.getElementById('modal-' + id).classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
@@ -2594,8 +2615,12 @@
         
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay').forEach(modal => modal.classList.remove('active'));
-                document.body.style.overflow = 'auto';
+                const openModals = document.querySelectorAll('.modal-overlay.active');
+                if (openModals.length > 0) {
+                    playCloseSound();
+                    openModals.forEach(modal => modal.classList.remove('active'));
+                    document.body.style.overflow = 'auto';
+                }
             }
         });
         
